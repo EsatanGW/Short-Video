@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="show_information_bar" format="boolean" />
+    <attr name="show_back_button" format="boolean" />
+    <declare-styleable name="PlayerView">
+        <attr name="show_information_bar" />
+        <attr name="show_back_button" />
+    </declare-styleable>
+    <declare-styleable name="PlayerControlView">
+        <attr name="show_information_bar" />
+        <attr name="show_back_button" />
+    </declare-styleable>
+</resources>

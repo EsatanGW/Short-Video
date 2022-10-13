@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorInformationText">#999999</color>
+
+    <color name="colorVideoProgress">#04d8af</color>
+
+    <color name="colorStatusSelectedBg">#4CFFFFFF</color>
+
+    <color name="colorTextInputBorder">#979797</color>
+
+    <color name="colorLiveRoomInformation">@android:color/white</color>
+
+    <color name="colorToolbarBackgroundGradientStart">#ffc6d3</color>
+    <color name="colorToolbarBackgroundGradientEnd">#be8dff</color>
+
+    <color name="colorControllerMask">#98000000</color>
+</resources>

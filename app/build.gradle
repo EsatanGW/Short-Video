@@ -1,0 +1,83 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+}
+
+android {
+    namespace 'com.esatan.shortvideo'
+    compileSdk compile_sdk_version as int
+
+    defaultConfig {
+        applicationId "com.esatan.shortvideo"
+        minSdk min_sdk_version as int
+        targetSdk target_sdk_version as int
+        versionCode version_code as int
+        versionName version_name
+    }
+
+    buildTypes {
+        release {
+            crunchPngs false
+            minifyEnabled false
+            shrinkResources false
+            zipAlignEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+//    api project(":base")
+    implementation fileTree(dir: "libs", include: ["*.jar", '*.aar'])
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin"
+
+    implementation "androidx.core:core-ktx:$android_core"
+    implementation "androidx.appcompat:appcompat:$appcompat"
+    implementation "androidx.activity:activity-ktx:$activity"
+    implementation "androidx.fragment:fragment-ktx:$fragment"
+    implementation "com.google.android.material:material:$android_material"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout"
+
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigation"
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle"
+
+    implementation "androidx.paging:paging-runtime-ktx:$paging"
+
+    implementation "androidx.room:room-runtime:$room_database"
+    kapt "androidx.room:room-compiler:$room_database"
+    implementation "androidx.room:room-paging:$room_database"
+    implementation "androidx.room:room-ktx:$room_database"
+
+    implementation "com.squareup.okhttp3:okhttp:$okhttp"
+    implementation ("com.squareup.okhttp3:logging-interceptor:$okhttp") {
+        exclude group:"org.jetbrains.kotlin", module: "kotlin-stdlib-jdk8"
+        exclude group:"org.jetbrains.kotlin", module: "kotlin-stdlib-jdk7"
+    }
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
+
+    implementation "androidx.media3:media3-exoplayer:$media3"
+    implementation "androidx.media3:media3-ui:$media3"
+    implementation "androidx.media3:media3-exoplayer-dash:$media3"
+
+    implementation "com.github.bumptech.glide:glide:$glide"
+    kapt "com.github.bumptech.glide:compiler:$glide"
+}

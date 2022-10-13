@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Short Video</string>
+
+    <string name="video_comment_hint">發送留言...</string>
+
+    <string name="comment_time_just">剛剛</string>
+    <string name="comment_time_minute">分鐘前</string>
+    <string name="comment_time_hour">小時前</string>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="DurationText" parent="ExoStyledControls.TimeText.Duration">
+        <item name="android:textColor">#999999</item>
+        <item name="android:text">@string/exo_controls_time_placeholder</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+    <style name="PositionText" parent="ExoStyledControls.TimeText.Position">
+        <item name="android:textColor">#999999</item>
+        <item name="android:text">@string/exo_controls_time_placeholder</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+</resources>

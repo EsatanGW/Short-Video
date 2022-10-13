@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <View
+        android:layout_width="@dimen/button_height_small"
+        android:layout_height="@dimen/ui_interval_normal_half"
+        android:layout_marginTop="@dimen/ui_interval_normal_double"
+        android:background="@drawable/bg_square_solid_gray_corner_normal_double"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_comment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/ui_interval_normal_quadruple"
+        android:clickable="true"
+        android:clipToPadding="false"
+        android:fitsSystemWindows="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:overScrollMode="never"
+        android:paddingStart="@dimen/ui_interval_normal_triple"
+        android:paddingEnd="@dimen/ui_interval_normal_triple"
+        android:paddingBottom="@dimen/ui_interval_normal_double"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@id/divider"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:alpha="0.5"
+        android:background="@color/colorTextInputBorder"
+        app:layout_constraintBottom_toTopOf="@id/container_input" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_input"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/video_controller_height"
+        android:background="@android:color/black"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <View
+            android:id="@+id/input_background"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/ui_interval_small_double"
+            android:layout_marginTop="@dimen/ui_interval_small_double"
+            android:layout_marginBottom="@dimen/ui_interval_small_double"
+            android:background="@drawable/bg_square_border_white_corner_normal_double"
+            app:layout_constraintEnd_toStartOf="@id/btn_send"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/ui_interval_small_double"
+            android:layout_marginEnd="@dimen/ui_interval_small_double"
+            android:background="@null"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center_vertical"
+            android:hint="@string/video_comment_hint"
+            android:imeOptions="actionSend"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:paddingBottom="@dimen/above_keyboard_input_height"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textSize="@dimen/text_size_normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/input_background"
+            app:layout_constraintStart_toStartOf="@id/input_background" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_send"
+            android:layout_width="@dimen/button_height_normal"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_send"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

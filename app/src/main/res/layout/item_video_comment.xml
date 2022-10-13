@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:paddingTop="@dimen/ui_interval_normal_double">
+
+    <LinearLayout
+        android:id="@+id/container_anchor_avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/ui_interval_normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:theme="@style/Theme.MaterialComponents"
+            app:cardBackgroundColor="@null"
+            app:cardCornerRadius="@dimen/ui_corner_radius_normal_quadruple"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:strokeColor="@android:color/white"
+            app:strokeWidth="1dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_avatar"
+                android:layout_width="@dimen/button_height_small"
+                android:layout_height="@dimen/button_height_small"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_launcher_round" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_comment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:includeFontPadding="false"
+        android:layout_marginStart="@dimen/ui_interval_small_double"
+        android:layout_marginTop="@dimen/ui_interval_small"
+        android:lineSpacingExtra="@dimen/ui_interval_normal_half"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/container_anchor_avatar"
+        app:layout_constraintTop_toTopOf="@id/container_anchor_avatar"
+        tools:text="123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ui_interval_normal"
+        android:textColor="@color/colorInformationText"
+        android:textSize="@dimen/text_size_very_small"
+        app:layout_constraintStart_toStartOf="@id/tv_comment"
+        app:layout_constraintTop_toBottomOf="@id/tv_comment"
+        tools:text="4小時" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

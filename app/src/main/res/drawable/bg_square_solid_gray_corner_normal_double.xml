@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <size
+                android:width="@dimen/button_height_small"
+                android:height="@dimen/button_height_small" />
+            <solid android:color="@color/colorTextInputBorder" />
+            <corners android:radius="@dimen/ui_corner_radius_normal_double" />
+        </shape>
+    </item>
+</layer-list>
