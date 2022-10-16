@@ -15,6 +15,10 @@ android {
         targetSdk target_sdk_version as int
         versionCode version_code as int
         versionName version_name
+
+        multiDexEnabled true
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -26,15 +30,33 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
     buildFeatures {
         viewBinding true
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+
+        packagingOptions {
+            jniLibs {
+                useLegacyPackaging true
+            }
+        }
+    }
+
+    packagingOptions {
+        exclude "META-INF/LICENSE.md"
+        exclude "META-INF/LICENSE-notice.md"
     }
 }
 
@@ -44,6 +66,8 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin"
+
+    implementation "androidx.multidex:multidex:$multidex"
 
     implementation "androidx.core:core-ktx:$android_core"
     implementation "androidx.appcompat:appcompat:$appcompat"
@@ -80,4 +104,16 @@ dependencies {
 
     implementation "com.github.bumptech.glide:glide:$glide"
     kapt "com.github.bumptech.glide:compiler:$glide"
+
+    testImplementation "junit:junit:$junit"
+    androidTestImplementation "androidx.test.ext:junit:$androidx_test_junit"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$androidx_test_espresso"
+
+    androidTestImplementation "io.mockk:mockk:$mockk"
+    androidTestImplementation "io.mockk:mockk-android:$mockk"
+    androidTestImplementation "io.mockk:mockk-agent:$mockk"
+    androidTestImplementation "androidx.arch.core:core-common:$android_arch_core"
+    androidTestImplementation "androidx.arch.core:core-runtime:$android_arch_core"
+    androidTestImplementation "androidx.arch.core:core-testing:$android_arch_core"
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutine_test"
 }
