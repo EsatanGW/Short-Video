@@ -3,19 +3,11 @@ package com.esatan.shortvideo.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.esatan.shortvideo.Application
+import com.esatan.shortvideo.model.dao.VideoCommentDao
 import com.esatan.shortvideo.model.data.VideoCommentData
-import com.esatan.shortvideo.model.database.VideoDatabase
 import com.esatan.shortvideo.model.repository.VideoRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
-class MainViewModel(private val videoRepository: VideoRepository) : ViewModel() {
-
-    private val commentDao by lazy {
-        VideoDatabase(Application.instance).videoCommentDao()
-    }
+class MainViewModel(private val videoRepository: VideoRepository, private val commentDao: VideoCommentDao) : ViewModel() {
 
     var videoContentWidth: Int = 0
 
@@ -26,21 +18,18 @@ class MainViewModel(private val videoRepository: VideoRepository) : ViewModel() 
         _keyboardMaskVisibleLivedata.value = isVisible
     }
 
-    suspend fun queryVideoArray(auth: String) =  videoRepository.queryVideoArray(auth)
+    suspend fun queryVideoArray(auth: String) = videoRepository.queryVideoArray(auth)
 
     fun queryVideoComments(videoId: String) = commentDao.queryComments(videoId)
 
-    fun addVideoComments(videoId: String, message: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            commentDao.addComment(
-                VideoCommentData(
-                    videoId = videoId,
-                    nickname = "Guest",
-                    avatarUrl = null,
-                    comment = message,
-                    timestamp = System.currentTimeMillis()
-                )
+    suspend fun addVideoComments(videoId: String, message: String, timeStamp: Long = System.currentTimeMillis()) =
+        commentDao.addComment(
+            VideoCommentData(
+                videoId = videoId,
+                nickname = "Guest",
+                avatarUrl = null,
+                comment = message,
+                timestamp = timeStamp
             )
-        }
-    }
+        )
 }

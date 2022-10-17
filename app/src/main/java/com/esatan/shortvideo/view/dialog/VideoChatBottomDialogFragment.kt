@@ -30,7 +30,7 @@ import com.esatan.shortvideo.model.data.VideoCommentData
 import com.esatan.shortvideo.parsedTime
 import com.esatan.shortvideo.viewmodel.MainViewModel
 import com.esatan.shortvideo.viewmodel.ViewModelFactory
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 
 class VideoChatBottomDialogFragment :
     BaseBottomSheetDialogFragment<DialogFragmentVideoChatBinding>() {
@@ -73,64 +73,68 @@ class VideoChatBottomDialogFragment :
             layoutManager = LinearLayoutManager(context)
             adapter = VideoCommentAdapter().apply {
                 lifecycleScope.launchWhenStarted {
-                    delay(200)
-                    initSubmit(lifecycle, pagingSourceFactory = {
-                        mainViewModel.queryVideoComments(data!!.id).apply {
-                            postDelayed({ smoothScrollToPosition(0) }, 100)
+                    initSubmit(
+                        lifecycle,
+                        pagingSourceFactory = {
+                            mainViewModel.queryVideoComments(data!!.id).apply {
+                                postDelayed({ smoothScrollToPosition(0) }, 100)
+                            }
                         }
-                    })
-                }
-                setOnTouchListener { view, motionEvent ->
-                    when (motionEvent.action) {
-                        MotionEvent.ACTION_DOWN -> {
-                            etInput.closeKeyboard()
-                        }
-                        MotionEvent.ACTION_UP -> view.performClick()
-                    }
-                    false
+                    )
                 }
             }
+            setOnTouchListener { view, motionEvent ->
+                when (motionEvent.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        etInput.closeKeyboard()
+                    }
+                    MotionEvent.ACTION_UP -> view.performClick()
+                }
+                false
+            }
         }
+
         initFunctionView()
     }
 
     private fun DialogFragmentVideoChatBinding.initFunctionView() {
-        val onSend: ((String) -> Unit) = { message: String ->
-            if (message.isNotBlank()) {
-                sendChatMessage(message) {
-                    etInput.apply {
-                        setText("")
-                        clearFocus()
-                    }
-                    rvComment.apply {
-                        (adapter as VideoCommentAdapter).refresh()
-                        postDelayed({ smoothScrollToPosition(0) }, 100)
-                    }
-                }
-            }
-        }
         etInput.run {
             setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_SEND) {
-                    onSend.invoke(etInput.text.toString())
+                    onSend(etInput.text.toString())
                     return@setOnEditorActionListener true
                 }
                 false
             }
-            setOnFocusChangeListener { view, hasFocus ->
+            setOnFocusChangeListener { _, hasFocus ->
                 if (!hasFocus) {
                     closeKeyboard()
                 }
             }
         }
         btnSend.setOnClickListener {
-            onSend.invoke(etInput.text.toString())
+            onSend(etInput.text.toString())
         }
     }
 
-    private fun sendChatMessage(message: String, block: () -> Unit) {
-        mainViewModel.addVideoComments(data!!.id, message)
-        block.invoke()
+    private fun DialogFragmentVideoChatBinding.onSend(message: String) {
+        if (message.isBlank()) return
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            val commentId = mainViewModel.addVideoComments(data!!.id, message)
+            if (commentId < 1) return@launch
+
+            withContext(Dispatchers.Main) {
+                etInput.apply {
+                    setText("")
+                    clearFocus()
+                }
+                rvComment.apply {
+                    (adapter as VideoCommentAdapter).refresh()
+                    postDelayed({ smoothScrollToPosition(0) }, 100)
+                }
+            }
+        }
     }
 
     private fun EditText.closeKeyboard() {

@@ -61,7 +61,7 @@ android {
 }
 
 dependencies {
-//    api project(":base")
+//    implementation project(":base")
     implementation fileTree(dir: "libs", include: ["*.jar", '*.aar'])
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin"

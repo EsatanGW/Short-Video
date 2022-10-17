@@ -53,7 +53,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 mainViewModel,
                 onChat = ::onChat,
                 onLike = ::onLike
-            ).initData()
+            ).apply {
+                lifecycleScope.launchWhenStarted {
+                    initSubmit(lifecycle) { currentPage ->
+                        mainViewModel.queryVideoArray("0123456789#0#shortvideoId")
+                    }
+                }
+            }
         }
 
         mainViewModel.keyboardMaskVisibleLivedata.observe(this@MainActivity) {
@@ -70,15 +76,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun onPause() {
         super.onPause()
         (binding.rvVideo.adapter as VideoDetailAdapter).currentHolder?.pause()
-    }
-
-    private fun VideoDetailAdapter.initData(): VideoDetailAdapter {
-        lifecycleScope.launchWhenStarted {
-            initSubmit(lifecycle) { currentPage ->
-                mainViewModel.queryVideoArray("0123456789#0#shortvideoId")
-            }
-        }
-        return this
     }
 
     private fun onChat(view: View, position: Int, data: VideoData?) {
